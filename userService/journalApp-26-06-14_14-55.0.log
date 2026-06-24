@@ -1,0 +1,10 @@
+26-06-14 14:55:10.669 [SpringApplicationShutdownHook] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application USER-SERVICE with eureka with status DOWN 
+26-06-14 14:55:10.669 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1781429110669, current=DOWN, previous=UP] 
+26-06-14 14:55:10.670 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_USER-SERVICE/10.122.92.252:USER-SERVICE:8081: registering service... 
+26-06-14 14:55:10.672 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete 
+26-06-14 14:55:10.675 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete 
+26-06-14 14:55:10.678 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_USER-SERVICE/10.122.92.252:USER-SERVICE:8081 - registration status: 204 
+26-06-14 14:55:10.765 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ... 
+26-06-14 14:55:13.765 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ... 
+26-06-14 14:55:13.775 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_USER-SERVICE/10.122.92.252:USER-SERVICE:8081 - deregister  status: 200 
+26-06-14 14:55:13.775 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient 

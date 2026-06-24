@@ -1,0 +1,23 @@
+spring:
+  application:
+    name:  API-GATEWAY
+  cloud:
+    gateway:
+      server:
+         web flux:
+          routes:
+            - id: USER-SERVICE
+              uri: http://localhost:8081
+              predicates:
+                - Path=/public/** , /user/**
+
+server:
+  port: 9090
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
