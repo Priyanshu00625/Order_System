@@ -1,7 +1,10 @@
 package com.orderItems.orderItemsServer.ordersServices;
 
+import com.orderItems.orderItemsServer.client.ProductClients;
+import com.orderItems.orderItemsServer.dto.Product;
 import com.orderItems.orderItemsServer.entity.Order;
 import com.orderItems.orderItemsServer.repository.OrdersRepositry;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +16,19 @@ public class OrderService {
     @Autowired
     private OrdersRepositry ordersRepositry;
 
-    public boolean saveOrders(Order orders){
-        Order save = ordersRepositry.save(orders);
+    private final ProductClients productClients;
 
-        if (save.equals(true)){
-            return true;
-        }else {
-            return false;
-        }
+    public OrderService(ProductClients productClients) {
+        this.productClients = productClients;
+    }
 
+    public boolean saveOrders(Order orders , ObjectId productId){
+        Product product = productClients.getProductById(productId);
+        orders.setProductId(product.getId().toString());
+        orders.setProductName(product.getName());
+        orders.setProductPrice(product.getPrice());
+        ordersRepositry.save(orders);
+        return true;
     }
 
     public List<Order> findAllOrders(){
@@ -32,5 +39,7 @@ public class OrderService {
         Long id = orders.getId();
       return ordersRepositry.deleteAllById(id);
     }
-
+public List<Product> findAll(){
+        return productClients.findAll();
+}
 }

@@ -2,6 +2,7 @@ package com.products.controller;
 
 import com.products.entity.Product;
 import com.products.service.ProductService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Product>> findAll() {
         try{
             return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
@@ -26,13 +27,15 @@ public class ProductController {
         }
     }
     @GetMapping("/id/{productId}")
-    public ResponseEntity<?> findById(@PathVariable String productId) {
+    public ResponseEntity<?> findById(@PathVariable ObjectId productId) {
         try{
             Product product = productService.findById(productId);
-            if (product == null) {
+            if (product != null && product.getQuantity() > 0) {
+                productService.updateQunatity(product);
+                return new ResponseEntity<>(product, HttpStatus.OK);
+            }else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<>(product ,HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -72,6 +75,16 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+//    @GetMapping("/check")
+//    public ResponseEntity<?> checkProduct(ObjectId id) {
+//       try{
+//
+//           return new ResponseEntity<>(HttpStatus.OK);
+//       }catch (Exception e){
+//           return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//       }
+//    }
     @DeleteMapping
     public ResponseEntity<Boolean> deleteProduct(@RequestBody Product product) {
         try {

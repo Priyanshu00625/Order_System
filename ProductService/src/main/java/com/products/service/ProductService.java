@@ -15,6 +15,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+
     public boolean addItem(Product product) {
         if (productRepository.existsById(product.getId())) {
             product.setQuantity(product.getQuantity() + 1);
@@ -24,9 +25,16 @@ public class ProductService {
         productRepository.save(product);
         return true;
     }
-    public Product findById(String id) {
-        Product product = productRepository.findById(id).get();
-        return product;
+    public boolean updateQunatity(Product product) {
+        Optional<Product> b = productRepository.findById(product.getId());
+        if (b.isPresent()) {
+            product.setQuantity(product.getQuantity() - 1);
+            return true;
+        }
+return  false;
+    }
+    public Product findById(ObjectId id) {
+        return productRepository.findById(id).get();
     }
     public Optional<Product> findByName(String productName) {
         return productRepository.findByName(productName);
