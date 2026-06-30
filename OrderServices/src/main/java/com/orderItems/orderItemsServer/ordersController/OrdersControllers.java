@@ -20,10 +20,11 @@ public class OrdersControllers {
     private OrderService orderService;
 
     @PostMapping("/{productId}")
-    public ResponseEntity<Order> Save_new_order(@RequestBody Order order , @PathVariable  ObjectId productId){
+    public ResponseEntity<Order> Save_new_order(@RequestBody Order order , @PathVariable String productId){
        try{
-           orderService.saveOrders(order ,  productId);
-           return new ResponseEntity<>(order , HttpStatus.CREATED);
+           Order order1 = orderService.saveOrders(order, productId);
+           return new ResponseEntity<>(order1 , HttpStatus.CREATED);
+
        } catch (RuntimeException e) {
            e.printStackTrace();
            log.error(e.getMessage());

@@ -27,14 +27,14 @@ public class ProductController {
         }
     }
     @GetMapping("/id/{productId}")
-    public ResponseEntity<?> findById(@PathVariable ObjectId productId) {
+    public ResponseEntity<?> findById(@PathVariable String productId) {
         try{
             Product product = productService.findById(productId);
-            if (product != null && product.getQuantity() > 0) {
+            if (product.getQuantity() <=0){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }else {
                 productService.updateQunatity(product);
                 return new ResponseEntity<>(product, HttpStatus.OK);
-            }else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "PRODUCT-SERVICE" , url = "http://localhost:8084/product" , configuration = FeignConfig.class)
+@FeignClient(name = "PRODUCT-SERVICE" , url = "http://PRODUCT-SERVICE/product" , configuration = FeignConfig.class)
 public interface ProductClients {
     @GetMapping("/all")
     List<Product> findAll();
     @GetMapping("/id/{productId}")
-    Product getProductById(@PathVariable("productId") ObjectId productId);
+    Product getProductById(@PathVariable("productId") String productId);
 }

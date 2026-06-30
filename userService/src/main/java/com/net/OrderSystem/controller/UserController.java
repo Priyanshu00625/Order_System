@@ -2,6 +2,7 @@ package com.net.OrderSystem.controller;
 
 import com.net.OrderSystem.entity.User;
 import com.net.OrderSystem.services.UserService;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +24,23 @@ public class UserController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String userName = authentication.getName();
             User byUserName = userService.findByUserName(userName);
-            return new ResponseEntity<>(byUserName ,HttpStatus.OK);
+            return new ResponseEntity<>(byUserName  ,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @GetMapping("/userName")
+    public ResponseEntity<String> getUserName(){
+        try{
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String userName = authentication.getName();
+            User byUserName = userService.findByUserName(userName);
+            String name = byUserName.getUserName();
+            return new ResponseEntity<>(name ,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody User user ){
         try{

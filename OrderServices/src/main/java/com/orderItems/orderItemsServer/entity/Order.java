@@ -2,19 +2,21 @@ package com.orderItems.orderItemsServer.entity;
 
 import com.orderItems.orderItemsServer.dto.Product;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.bson.types.ObjectId;
+import org.springframework.stereotype.Indexed;
 
 @Entity
 @Data
 @Table(name = "Orders")
 public class Order {
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String userName;
     private String productId;
     private String productName;
     private Double productPrice;
+    private int quantity;
 }

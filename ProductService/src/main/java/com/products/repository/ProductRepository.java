@@ -13,5 +13,6 @@ public interface ProductRepository extends MongoRepository<Product, String> {
     boolean existsById(ObjectId id);
 
     Optional<Product> findById(ObjectId id);
+    String findByProductId(String productId);
 
 }

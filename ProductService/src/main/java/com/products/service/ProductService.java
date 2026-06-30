@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -22,18 +23,18 @@ public class ProductService {
             productRepository.save(product);
             return true;
         }
+        product.setProductId(UUID.randomUUID().toString());
         productRepository.save(product);
         return true;
     }
-    public boolean updateQunatity(Product product) {
-        Optional<Product> b = productRepository.findById(product.getId());
-        if (b.isPresent()) {
+    public void updateQunatity(Product product) {
+        String b = productRepository.findByProductId(product.getProductId());
+        if (!b.isEmpty()) {
             product.setQuantity(product.getQuantity() - 1);
-            return true;
+            productRepository.save(product);
         }
-return  false;
     }
-    public Product findById(ObjectId id) {
+    public Product findById(String id) {
         return productRepository.findById(id).get();
     }
     public Optional<Product> findByName(String productName) {

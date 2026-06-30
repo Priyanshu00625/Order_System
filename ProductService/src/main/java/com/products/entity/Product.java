@@ -19,6 +19,8 @@ public class Product {
     @Id
     private ObjectId id;
     @Indexed(unique = true)
+    private String productId;
+    @Indexed(unique = true)
     private String name;
     private String description;
     @NotNull

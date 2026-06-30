@@ -35,7 +35,6 @@ public class User {
     @NotBlank
     private String password;
     private String email;
-    private Order orders;
     private String role;
     private LocalDateTime time;
 }
